@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { Play, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { portfolioData } from "@/data/portfolio";

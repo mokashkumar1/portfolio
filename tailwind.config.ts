@@ -65,6 +65,13 @@ const config: Config = {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
+        fashion: {
+          cream: "hsl(var(--fashion-cream))",
+          beige: "hsl(var(--fashion-beige))",
+          charcoal: "hsl(var(--fashion-charcoal))",
+          accent: "hsl(var(--fashion-accent))",
+          highlight: "hsl(var(--fashion-highlight))",
+        },
       },
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
@@ -98,6 +105,9 @@ const config: Config = {
         "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
         "spin-slow": "spin 8s linear infinite",
         spotlight: "spotlight 2s ease .75s 1 forwards",
+        "float": "float 3s ease-in-out infinite",
+        "data-stream": "dataStream 2s linear infinite",
+        "schema-pulse": "schemaPulse 2s ease-in-out infinite",
       },
       keyframes: {
         fadeIn: {
@@ -129,6 +139,18 @@ const config: Config = {
             opacity: "1",
             transform: "translate(-50%,-40%) scale(1)",
           },
+        },
+        float: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-10px)" },
+        },
+        dataStream: {
+          "0%": { strokeDashoffset: "20" },
+          "100%": { strokeDashoffset: "0" },
+        },
+        schemaPulse: {
+          "0%, 100%": { transform: "scale(1)", opacity: "0.8" },
+          "50%": { transform: "scale(1.02)", opacity: "1" },
         },
       },
       backgroundImage: {

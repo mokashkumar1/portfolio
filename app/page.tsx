@@ -2,9 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { Hero } from "@/components/ui/animated-hero";
-import { SplineScene } from "@/components/ui/splite";
-import { Spotlight } from "@/components/ui/spotlight";
+import { SplineHero } from "@/components/sections/SplineHero";
 import { HoverSpotlight } from "@/components/ui/hover-spotlight";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { portfolioData } from "@/data/portfolio";
@@ -30,46 +28,32 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <div className="relative pt-20">
-        {/* Background glow effects */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-cyan-500/20 blur-[120px] rounded-full pointer-events-none" />
-        <Hero />
-      </div>
+      <SplineHero />
 
-      {/* Spline Interactive About Section */}
+      {/* About Section */}
       <section id="about" className="py-24 relative max-w-7xl mx-auto px-6">
-        <Card className="w-full h-[500px] md:h-[600px] bg-black/[0.96] relative overflow-hidden border-zinc-800">
-          <Spotlight
-            className="-top-40 left-0 md:left-60 md:-top-20"
-            fill="cyan"
-          />
-          
-          <div className="flex flex-col md:flex-row h-full">
-            {/* Left content */}
-            <div className="flex-1 p-8 md:p-12 relative z-10 flex flex-col justify-center">
-              <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tighter">
-                About
-              </h2>
-              <p className="mt-6 text-zinc-400 max-w-lg leading-relaxed text-lg">
-                {portfolioData.aboutText}
-              </p>
-              <div className="mt-8 flex flex-wrap gap-2">
-                {portfolioData.skills[0].items.slice(0, 4).map(skill => (
-                  <span key={skill} className="px-3 py-1 bg-zinc-900 border border-zinc-800 rounded-full text-xs text-zinc-300">
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Right content - Spline */}
-            <div className="flex-1 relative h-64 md:h-full">
-              <SplineScene 
-                scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-                className="w-full h-full"
-              />
-              {/* Optional overlay to prevent full scroll capture on mobile */}
-              <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black via-transparent to-black/20" />
+        <div className="absolute -left-40 top-1/3 w-[500px] h-[500px] bg-cyan-500/[0.04] blur-[120px] rounded-full pointer-events-none" />
+        <Card className="w-full bg-black/[0.96] relative overflow-hidden border-zinc-800 hover:bg-black/[0.96]">
+          <div className="p-8 md:p-14">
+            <h2 className="text-4xl md:text-5xl font-heading font-bold text-white tracking-tighter">
+              About
+            </h2>
+            <p className="mt-6 text-zinc-400 max-w-3xl leading-relaxed text-base md:text-lg">
+              {portfolioData.aboutText}
+            </p>
+            <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {portfolioData.skills.map(cat => (
+                <div key={cat.category} className="space-y-3">
+                  <h3 className="text-xs font-semibold text-cyan-400 uppercase tracking-wider">{cat.category}</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {cat.items.map(skill => (
+                      <span key={skill} className="px-3 py-1 bg-zinc-900/80 border border-zinc-800 rounded-full text-xs text-zinc-300">
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </Card>

@@ -5,29 +5,10 @@ import Image from "next/image";
 
 const TechLogos = {
   python: () => (
-    <svg className="h-8 w-auto" viewBox="0 0 256 255" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid">
-      <defs>
-        <linearGradient id="pyA" x1="12.959%" x2="79.639%" y1="12.039%" y2="78.201%">
-          <stop offset="0%" stopColor="#387EB8"/>
-          <stop offset="100%" stopColor="#366994"/>
-        </linearGradient>
-        <linearGradient id="pyB" x1="19.128%" x2="90.742%" y1="20.579%" y2="88.429%">
-          <stop offset="0%" stopColor="#FFC836"/>
-          <stop offset="100%" stopColor="#FFD43B"/>
-        </linearGradient>
-      </defs>
-      <path fill="url(#pyA)" d="M126.916.072c-64.832 0-60.784 28.115-60.784 28.115l.072 29.128h61.868v8.745H41.631S.145 61.355.145 126.77c0 65.417 36.21 63.097 36.21 63.097h21.61v-30.356s-1.165-36.21 35.632-36.21h61.362s34.475.557 34.475-33.319V33.97S194.67.072 126.916.072zM92.802 19.66a11.12 11.12 0 0 1 11.13 11.13 11.12 11.12 0 0 1-11.13 11.13 11.12 11.12 0 0 1-11.13-11.13 11.12 11.12 0 0 1 11.13-11.13z"/>
-      <path fill="url(#pyB)" d="M128.757 254.126c64.832 0 60.784-28.115 60.784-28.115l-.072-29.127H127.6v-8.745h86.441s41.486 4.705 41.486-60.712c0-65.416-36.21-63.096-36.21-63.096h-21.61v30.355s1.165 36.21-35.632 36.21h-61.362s-34.475-.557-34.475 33.32v56.013s-5.235 33.897 62.518 33.897zm34.114-19.586a11.12 11.12 0 0 1-11.13-11.13 11.12 11.12 0 0 1 11.13-11.131 11.12 11.12 0 0 1 11.13 11.13 11.12 11.12 0 0 1-11.13 11.13z"/>
-    </svg>
+    <Image src="/assets/logos/python.gif" alt="Python" width={32} height={32} unoptimized className="h-8 w-auto object-contain" />
   ),
   java: () => (
-    <svg className="h-8 w-auto" viewBox="0 0 256 346" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid">
-      <path d="M82.554 267.473s-13.198 7.675 9.393 10.272c27.369 3.122 41.356 2.675 71.517-3.034 0 0 7.93 4.972 19.003 9.279-67.611 28.977-153.019-1.679-99.913-16.517M74.292 229.659s-14.803 10.958 7.805 13.296c29.236 3.016 52.324 3.263 92.276-4.43 0 0 5.526 5.602 14.215 8.666-81.747 23.904-172.842 1.885-114.296-17.532" fill="#5382A1"/>
-      <path d="M143.942 165.515c16.66 19.18-4.377 36.44-4.377 36.44s42.301-21.837 22.874-49.183c-18.144-25.5-32.059-38.172 43.268-81.858 0 0-118.238 29.53-61.765 94.6" fill="#E76F00"/>
-      <path d="M233.364 295.442s9.767 8.047-10.757 14.273c-39.026 11.823-162.432 15.393-196.714.471-12.323-5.36 10.787-12.8 18.056-14.362 7.581-1.644 11.914-1.337 11.914-1.337-13.705-9.655-88.583 18.957-38.034 27.15 137.853 22.356 251.292-10.066 215.535-26.195M88.9 190.48s-62.771 14.91-22.228 20.323c17.118 2.292 51.243 1.774 83.03-.89 25.978-2.19 52.063-6.85 52.063-6.85s-9.16 3.923-15.787 8.448c-63.744 16.765-186.886 8.966-151.435-8.183 29.981-14.492 54.358-12.848 54.358-12.848M201.506 253.422c64.8-33.672 34.839-66.03 13.927-61.67-5.126 1.066-7.411 1.99-7.411 1.99s1.903-2.98 5.537-4.27c41.37-14.545 73.187 42.897-13.355 65.647 0 .001 1.003-.895 1.302-1.697" fill="#5382A1"/>
-      <path d="M162.439.371s35.887 35.9-34.037 91.101c-56.071 44.282-12.786 69.53-.023 98.377-32.73-29.53-56.75-55.526-40.635-79.72C111.395 74.612 176.918 57.393 162.439.37" fill="#E76F00"/>
-      <path d="M95.268 344.665c62.199 3.982 157.712-2.209 159.974-31.64 0 0-4.348 11.158-51.404 20.018-53.088 9.99-118.564 8.824-157.399 2.421.001 0 7.95 6.58 48.83 9.201" fill="#5382A1"/>
-    </svg>
+    <Image src="/assets/logos/java.gif" alt="Java" width={32} height={32} unoptimized className="h-8 w-auto object-contain" />
   ),
   cpp: () => (
     <svg className="h-8 w-auto" viewBox="0 0 306 344" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid">
@@ -35,7 +16,7 @@ const TechLogos = {
       <path d="M166.25 341.193l126.5-73.034c3.644-2.104 6.956-6.425 9.357-10.584L153 172.175 3.893 258.263c2.401 4.159 5.714 8.482 9.357 10.584l126.5 73.034c7.287 4.208 19.213 4.208 26.5-.688z" fill="#004482"/>
       <path d="M302.108 86.087c-2.402-4.16-5.715-8.482-9.358-10.584L166.25 2.469c-7.288-4.208-19.214-4.208-26.5 0L13.25 75.503C5.962 79.71.554 88.932.554 97.139v148.07c0 4.208 1.491 8.894 3.893 13.053L153 172.175l149.108-86.088z" fill="#659AD2"/>
       <path d="M153 274.175c-56.243 0-102-45.757-102-102s45.757-102 102-102c36.292 0 70.139 19.53 88.331 50.968l-44.143 25.544c-9.1-15.736-26.038-25.512-44.188-25.512-28.122 0-51 22.878-51 51 0 28.121 22.878 51 51 51 18.152 0 35.085-9.776 44.191-25.515l44.143 25.543C222.139 254.645 189.292 274.175 153 274.175z" fill="#FFF"/>
-      <path d="M255 166.508h-11.334v-11.333h-11.332v11.333H221v11.333h11.334v11.334h11.332v-11.334H255zM297.5 166.508h-11.334v-11.333h-11.332v11.333H263.5v11.333h11.334v11.334h11.332v-11.334H297.5z" fill="#FFF"/>
+      <path d="M255 166.508h-11.334v-11.333h-11.332v11.333H221v11.333h11.334v11.334h11.332v-11.334H255zM297.5 166.508h-11.334v-11.333h-11.332v11.333H263.5v11.333h11.334h11.334h11.332v-11.334H297.5z" fill="#FFF"/>
     </svg>
   ),
   git: () => (
@@ -79,10 +60,10 @@ const TechLogos = {
     </svg>
   ),
   sql: () => (
-    <Image src="/assets/logos/mysql.svg" alt="MySQL" width={80} height={32} className="h-8 w-auto" />
+    <Image src="/assets/logos/sql.gif" alt="SQL" width={32} height={32} unoptimized className="h-8 w-auto object-contain" />
   ),
-  dart: () => (
-    <Image src="/assets/logos/dart.svg" alt="Dart" width={32} height={32} className="h-8 w-auto" />
+  flutter: () => (
+    <Image src="/assets/logos/flutter.gif" alt="Flutter" width={32} height={32} unoptimized className="h-8 w-auto object-contain" />
   ),
   excel: () => (
     <svg className="h-8 w-auto" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid">
@@ -94,6 +75,15 @@ const TechLogos = {
       <text x="28" y="60" fontFamily="Arial" fontSize="32" fill="white" fontWeight="bold" textAnchor="middle">X</text>
     </svg>
   ),
+  dataAnalysis: () => (
+    <Image src="/assets/logos/data-analysis.gif" alt="Data Analysis" width={32} height={32} unoptimized className="h-8 w-auto object-contain" />
+  ),
+  neuralNetwork: () => (
+    <Image src="/assets/logos/neural-network.gif" alt="Neural Networks" width={32} height={32} unoptimized className="h-8 w-auto object-contain" />
+  ),
+  videoEditing: () => (
+    <Image src="/assets/logos/video-editing.gif" alt="Video Editing" width={32} height={32} unoptimized className="h-8 w-auto object-contain" />
+  ),
 };
 
 const skills = [
@@ -101,7 +91,10 @@ const skills = [
   { name: "Java", logo: TechLogos.java },
   { name: "C++", logo: TechLogos.cpp },
   { name: "MySQL", logo: TechLogos.sql },
-  { name: "Dart", logo: TechLogos.dart },
+  { name: "Flutter", logo: TechLogos.flutter },
+  { name: "Data Analysis", logo: TechLogos.dataAnalysis },
+  { name: "Machine Learning", logo: TechLogos.neuralNetwork },
+  { name: "Video Editing", logo: TechLogos.videoEditing },
   { name: "Git", logo: TechLogos.git },
   { name: "GitHub", logo: TechLogos.github },
   { name: "VS Code", logo: TechLogos.vscode },

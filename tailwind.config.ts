@@ -108,6 +108,7 @@ const config: Config = {
         "float": "float 3s ease-in-out infinite",
         "data-stream": "dataStream 2s linear infinite",
         "schema-pulse": "schemaPulse 2s ease-in-out infinite",
+        marquee: "marquee var(--duration, 30s) linear infinite",
       },
       keyframes: {
         fadeIn: {
@@ -151,6 +152,9 @@ const config: Config = {
         schemaPulse: {
           "0%, 100%": { transform: "scale(1)", opacity: "0.8" },
           "50%": { transform: "scale(1.02)", opacity: "1" },
+        },
+        marquee: {
+          to: { transform: "translateX(-50%)" },
         },
       },
       backgroundImage: {

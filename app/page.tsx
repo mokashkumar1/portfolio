@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { SplineHero } from "@/components/sections/SplineHero";
+import { MarqueeDemo } from "@/components/ui/marquee-demo";
 import { HoverSpotlight } from "@/components/ui/hover-spotlight";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { portfolioData } from "@/data/portfolio";
@@ -29,6 +30,9 @@ export default function Home() {
 
       {/* Hero Section */}
       <SplineHero />
+
+      {/* Infinite Marquee Tech Stack */}
+      <MarqueeDemo />
 
       {/* About Section */}
       <section id="about" className="py-24 relative max-w-7xl mx-auto px-6">

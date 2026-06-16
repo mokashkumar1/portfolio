@@ -109,7 +109,7 @@ export const portfolioData: PortfolioData = {
   github: "github.com/mokashkumar1",
   instagram: "instagram.com/mokshluhana",
   resumeUrl: "https://drive.google.com/file/d/1QwVP4oj3UiYuiX0XP-XkFIAgWKsUrPcH/view?usp=sharing",
-  aboutText: "Computer Systems Engineering undergraduate passionate about Data Analytics, Machine Learning, and problem-solving using real-world data. Skilled in Python, Java, C++, data cleaning, and analytical thinking with hands-on experience building machine learning projects using self-collected datasets. Familiar with Linear Regression, Gradient Descent, and data preprocessing techniques. Strong team collaborator with leadership and event coordination experience. Seeking opportunities to apply analytical and technical skills in practical environments.",
+  aboutText: "Computer Systems Engineering undergraduate passionate about Full-Stack Development, Machine Learning, and problem-solving using real-world data. Skilled in React, TypeScript, Python, and modern web technologies. Experienced building scalable applications and ML models from concept to production. Strong collaborator with leadership and project management experience. Seeking full-stack engineering internships to apply technical expertise and deliver impactful solutions.",
   vibeText: "Moksh is Curious & Driven. Where engineering logic meets infinite creative boundaries ⚡ 💻 🎯",
   professionalStats: {
     projectsCount: 7,
@@ -127,19 +127,35 @@ export const portfolioData: PortfolioData = {
   skills: [
     {
       category: "Programming Languages",
-      items: ["Python", "Java", "C++", "SQL", "Dart (Basic)"]
+      items: ["Python", "JavaScript", "TypeScript", "Java", "C++", "SQL", "Dart (Basic)"]
     },
     {
-      category: "Data Analytics & ML",
-      items: ["Data Cleaning", "Data Visualization", "Data Preprocessing", "Linear Regression", "Gradient Descent"]
+      category: "Frontend Development",
+      items: ["React 18", "Next.js", "TypeScript", "Tailwind CSS", "HTML5", "CSS3", "Responsive Design"]
     },
     {
-      category: "Tools & Technologies",
-      items: ["Git", "GitHub", "VS Code", "Vercel", "Tableau", "Microsoft Excel"]
+      category: "Backend & Databases",
+      items: ["REST APIs", "PostgreSQL", "Supabase", "Node.js (Basics)", "Database Design"]
     },
     {
-      category: "Databases & Core Tools",
-      items: ["SQL", "Advanced Data Analytics", "Artificial Intelligence Fundamentals"]
+      category: "Data Science & ML",
+      items: ["Linear Regression", "Gradient Descent", "Data Cleaning", "Data Visualization", "Pandas", "Scikit-learn"]
+    },
+    {
+      category: "Developer Tools",
+      items: ["Git", "GitHub", "VS Code", "Vercel", "Supabase Console", "Figma"]
+    },
+    {
+      category: "State Management",
+      items: ["Zustand", "React Hooks", "Context API"]
+    },
+    {
+      category: "Analytics & Tools",
+      items: ["Tableau", "Microsoft Excel", "Advanced Data Analytics"]
+    },
+    {
+      category: "Soft Skills",
+      items: ["Problem-Solving", "Leadership", "Team Collaboration", "Project Management", "Communication"]
     }
   ],
   radarSkills: [

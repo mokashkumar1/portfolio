@@ -34,13 +34,17 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport = {
+  themeColor: "#050607",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`dark scroll-smooth ${outfit.variable} ${jakarta.variable}`}>
+    <html lang="en" className={`dark scroll-smooth bg-[#050607] ${outfit.variable} ${jakarta.variable}`}>
       <head />
       <body
         className="antialiased bg-[#050607] text-zinc-100 min-h-screen font-sans selection:bg-cyan-500/30 selection:text-cyan-100"

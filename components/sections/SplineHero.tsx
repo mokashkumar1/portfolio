@@ -57,12 +57,12 @@ export function SplineHero() {
             initial={{ opacity: 0, scale: 0.85 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.15, duration: 0.6, ease: EASE_OUT_EXPO }}
-            className="flex items-center gap-5"
+            className="flex items-center gap-6"
           >
             <motion.div
               animate={{ y: [0, -6, 0] }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              className="relative w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-zinc-700 shadow-[0_0_30px_rgba(34,211,238,0.15)]"
+              className="relative w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-zinc-700 shadow-[0_0_30px_rgba(34,211,238,0.15)] flex-shrink-0"
             >
               <Image
                 src="/assets/profile/profile.png"
@@ -73,10 +73,12 @@ export function SplineHero() {
               />
             </motion.div>
             <div>
-              <p className="text-sm font-medium text-zinc-300">
+              <p className="text-lg md:text-xl font-bold text-white">
                 {portfolioData.name}
               </p>
-              <p className="text-xs text-zinc-500">{portfolioData.title}</p>
+              <p className="text-xs md:text-sm text-zinc-400 mt-1">
+                {portfolioData.title}
+              </p>
             </div>
           </motion.div>
 
@@ -105,23 +107,6 @@ export function SplineHero() {
             crafting visual stories — where engineering logic meets infinite
             creative boundaries.
           </motion.p>
-
-          {/* Skill pills */}
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.5 }}
-            className="flex flex-wrap gap-2"
-          >
-            {["Engineering", "Data & AI", "Content Creation"].map((label) => (
-              <span
-                key={label}
-                className="font-mono text-[10px] font-bold px-4 py-2 border border-white/10 bg-zinc-950/50 rounded text-zinc-400 hover:text-white hover:border-cyan-500/30 transition-colors duration-300"
-              >
-                {label}
-              </span>
-            ))}
-          </motion.div>
 
           {/* CTAs */}
           <motion.div

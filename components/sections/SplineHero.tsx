@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { MoveRight, Sparkles, Download } from "lucide-react";
+import { MoveRight, Download } from "lucide-react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { SplineScene } from "@/components/ui/splite";

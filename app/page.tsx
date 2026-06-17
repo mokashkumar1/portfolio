@@ -1,18 +1,23 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
+import { AnimatePresence, motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 import { SplineHero } from "@/components/sections/SplineHero";
 import { MarqueeDemo } from "@/components/ui/marquee-demo";
 import { HoverSpotlight } from "@/components/ui/hover-spotlight";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { portfolioData } from "@/data/portfolio";
-import { Code, ExternalLink, Calendar, MapPin } from "lucide-react";
+import { ExternalLink, Calendar, MapPin } from "lucide-react";
 import ContributorsTable from "@/components/ui/ruixen-contributors-table";
 import { ButtonColorful } from "@/components/ui/button-colorful";
 import { Footer } from "@/components/ui/footer-section";
+import { ExpandableSkillTags } from "@/components/ui/expandable-skill-tags";
 export default function Home() {
+  const [showAllProjects, setShowAllProjects] = useState(false);
   const projects = portfolioData.projects;
+  const displayedProjects = showAllProjects ? projects : projects.slice(0, 3);
 
   return (
     <main className="min-h-screen bg-background text-foreground overflow-x-hidden selection:bg-cyan-500/30 bg-noise">
@@ -47,16 +52,13 @@ export default function Home() {
             </p>
             <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {portfolioData.skills.map(cat => (
-                <div key={cat.category} className="space-y-3">
-                  <h3 className="text-xs font-semibold text-cyan-400 uppercase tracking-wider">{cat.category}</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {cat.items.map(skill => (
-                      <span key={skill} className="px-3 py-1 bg-zinc-900/80 border border-zinc-800 rounded-full text-xs text-zinc-300">
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+                <ExpandableSkillTags
+                  key={cat.category}
+                  title={cat.category}
+                  skills={cat.items}
+                  initialCount={4}
+                  className="space-y-3"
+                />
               ))}
             </div>
           </div>
@@ -69,55 +71,116 @@ export default function Home() {
           <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tighter">Projects</h2>
           <p className="text-zinc-400 mt-4 text-lg">A selection of my recent works across web, ML, and systems.</p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {projects.map((project, idx) => (
-            <div key={idx} className="relative group rounded-3xl p-[1px] bg-gradient-to-b from-white/10 to-transparent overflow-hidden">
-              <HoverSpotlight className="from-cyan-500/30 via-cyan-500/10 to-transparent" size={300} />
-              <div className="relative h-full bg-zinc-950 rounded-[23px] overflow-hidden flex flex-col z-10">
-                <div className="h-48 w-full relative bg-zinc-900 border-b border-zinc-800">
-                  {project.image ? (
-                    <Image src={project.image} alt={project.title} fill className="object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500" />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-zinc-700 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-zinc-800 to-zinc-950">
-                      No Image Available
+          <AnimatePresence mode="popLayout">
+            {displayedProjects.map((project, idx) => (
+              <motion.div
+                key={project.title}
+                layout
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.4, delay: idx > 2 ? (idx - 3) * 0.1 : 0 }}
+                className={cn(
+                  "relative group rounded-3xl p-[1px] bg-gradient-to-b overflow-hidden shadow-2xl shadow-black/50",
+                  idx === 0 ? "md:col-span-2 from-cyan-500/30 via-cyan-500/5 to-transparent" : "from-white/10 to-transparent"
+                )}
+              >
+                <HoverSpotlight className={idx === 0 ? "from-cyan-500/20 via-cyan-500/5 to-transparent" : "from-cyan-500/30 via-cyan-500/10 to-transparent"} size={300} />
+                <div className={cn(
+                  "relative h-full bg-zinc-950/60 backdrop-blur-xl rounded-[23px] overflow-hidden flex flex-col z-10 border border-white/5",
+                  idx === 0 ? "md:flex-row" : "flex-col"
+                )}>
+
+                  {/* Image Section */}
+                  <div className={cn(
+                    "relative bg-zinc-900 overflow-hidden shrink-0 flex items-center justify-center",
+                    idx === 0 ? "h-64 md:h-auto md:w-[45%] lg:w-[50%] border-b md:border-b-0 md:border-r border-white/5" : "aspect-video w-full border-b border-white/5"
+                  )}>
+                    {project.image ? (
+                      <Image
+                        src={project.image}
+                        alt={project.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        className="object-cover opacity-80 group-hover:opacity-100 transition-all duration-700 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-zinc-700 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-zinc-800 to-zinc-950">
+                        No Image Available
+                      </div>
+                    )}
+                    {/* Subtle inner shadow overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent opacity-60 pointer-events-none" />
+
+                    {/* Browser Frame Dots (for premium feel on featured project) */}
+                    {idx === 0 && (
+                      <div className="absolute top-5 left-5 flex gap-1.5 z-20">
+                        <div className="w-2.5 h-2.5 rounded-full bg-red-500/80 border border-black/20" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80 border border-black/20" />
+                        <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 border border-black/20" />
+                      </div>
+                    )}
+
+                    <div className="absolute top-4 right-4 flex gap-2 z-20">
+                      {project.githubUrl && (
+                        <a href={project.githubUrl} target="_blank" rel="noreferrer" className="p-2 bg-black/40 backdrop-blur-md border border-white/10 rounded-full text-white hover:bg-white hover:text-cyan-400 transition-colors" title="GitHub Repository">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.02c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                        </a>
+                      )}
+                      {project.demoUrl && (
+                        <a href={project.demoUrl} target="_blank" rel="noreferrer" className="p-2 bg-black/40 backdrop-blur-md border border-white/10 rounded-full text-white hover:bg-white hover:text-cyan-400 transition-colors">
+                          <ExternalLink className="w-4 h-4" />
+                        </a>
+                      )}
                     </div>
-                  )}
-                  <div className="absolute top-4 right-4 flex gap-2">
-                    {project.githubUrl && (
-                      <a href={project.githubUrl} target="_blank" rel="noreferrer" className="p-2 bg-black/50 backdrop-blur-md rounded-full text-white hover:bg-white hover:text-black transition-colors">
-                        <Code className="w-4 h-4" />
-                      </a>
-                    )}
-                    {project.demoUrl && (
-                      <a href={project.demoUrl} target="_blank" rel="noreferrer" className="p-2 bg-black/50 backdrop-blur-md rounded-full text-white hover:bg-white hover:text-black transition-colors">
-                        <ExternalLink className="w-4 h-4" />
-                      </a>
-                    )}
                   </div>
-                </div>
-                <div className="p-6 flex-1 flex flex-col">
-                  <div className="text-xs font-semibold text-cyan-400 mb-2 uppercase tracking-wider">{project.category}</div>
-                  <h3 className="text-2xl font-bold text-white mb-3">{project.title}</h3>
-                  <p className="text-zinc-400 text-sm mb-6 flex-1">{project.description}</p>
-                  <div className="flex flex-wrap gap-2 mt-auto">
-                    {project.tech.map(tech => (
-                      <span key={tech} className="px-2 py-1 bg-zinc-900 text-zinc-300 text-xs rounded-md border border-zinc-800">
-                        {tech}
-                      </span>
-                    ))}
+
+                  {/* Content Section */}
+                  <div className={cn(
+                    "p-6 flex-1 flex flex-col justify-center",
+                    idx === 0 ? "md:p-10 lg:p-12 md:w-[55%] lg:w-[50%]" : ""
+                  )}>
+                    <div className="text-[10px] font-mono font-bold text-cyan-400/80 mb-3 uppercase tracking-widest">{project.category}</div>
+                    <h3 className={cn(
+                      "font-bold text-white mb-3 tracking-tight",
+                      idx === 0 ? "text-3xl lg:text-4xl" : "text-2xl"
+                    )}>{project.title}</h3>
+                    <p className="text-zinc-400/90 text-sm leading-relaxed mb-6 flex-1">
+                      {idx === 0 && project.longDescription ? project.longDescription : project.description}
+                    </p>
+
+                    {/* Tech Pills */}
+                    <div className="flex flex-wrap gap-2 mt-auto pt-5 border-t border-white/5">
+                      {project.tech.map(tech => (
+                        <span key={tech} className="px-3 py-1 bg-white/5 text-zinc-300 text-[11px] font-medium rounded-full border border-white/10 tracking-wide hover:bg-white/10 transition-colors">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
                   </div>
+
                 </div>
-              </div>
-            </div>
-          ))}
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </div>
+        <div className="mt-12 flex justify-center">
+          <button
+            onClick={() => setShowAllProjects(!showAllProjects)}
+            className="group flex items-center gap-2 px-6 py-3 bg-zinc-900 hover:bg-zinc-800 text-white border border-white/10 hover:border-cyan-500/50 rounded-full transition-all duration-300 shadow-lg shadow-black/20"
+          >
+            <span className="font-medium text-sm">{showAllProjects ? "Show Less" : "Show More Projects"}</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={cn("transition-transform duration-300", showAllProjects ? "rotate-180" : "group-hover:translate-y-1")}><path d="m6 9 6 6 6-6" /></svg>
+          </button>
         </div>
       </section>
 
       {/* Experience & Hobbies Bento Grid */}
       <section id="experience" className="py-24 max-w-7xl mx-auto px-6 relative">
         <div className="absolute right-0 top-1/2 w-[600px] h-[600px] bg-purple-500/10 blur-[120px] rounded-full pointer-events-none" />
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Experience Column */}
           <div className="lg:col-span-2 space-y-6">

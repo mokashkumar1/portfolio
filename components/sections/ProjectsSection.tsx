@@ -251,7 +251,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                     >
                       
                       {/* Simulated Screen/Dashboard Frame holding the project image */}
-                      <div className="relative w-full h-44 sm:h-56 rounded-lg border border-white/5 bg-[#09090d] shadow-inner overflow-hidden group select-none flex items-center justify-center">
+                      <div className="relative w-full aspect-video rounded-lg border border-white/5 bg-[#09090d] shadow-inner overflow-hidden group select-none flex items-center justify-center">
                         <div className="absolute top-2 left-2 flex gap-1 z-20">
                           <span className="w-1.5 h-1.5 rounded-full bg-red-500/60" />
                           <span className="w-1.5 h-1.5 rounded-full bg-yellow-500/60" />

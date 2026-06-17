@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { ExpandableSkillTags } from "@/components/ui/expandable-skill-tags";
 
 interface AboutSectionProps {
   accentColor: "purple" | "cyan" | "amber";
@@ -460,6 +461,26 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ accentColor }) => {
 
             </div>
 
+          </div>
+
+          {/* ================= SKILLS GRID ================= */}
+          <div className="md:col-span-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
+            {portfolioData.skills.map((cat, idx) => (
+              <motion.div
+                key={cat.category}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ delay: 0.1 * idx, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                className="obsidian-card p-5 rounded-2xl flex flex-col relative overflow-hidden group border border-white/5 bg-zinc-950/40 hover:bg-zinc-950/80 transition-colors"
+              >
+                <ExpandableSkillTags
+                  title={cat.category}
+                  skills={cat.items}
+                  initialCount={4}
+                />
+              </motion.div>
+            ))}
           </div>
 
         </div>

@@ -29,7 +29,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { portfolioData } from "@/data/portfolio";
 
@@ -45,21 +45,10 @@ type TableProject = {
   title: string;
   repo: string;
   status: "Active" | "Inactive" | "In Progress";
-  team: string;
   tech: string;
   createdAt: string;
   contributors: Contributor[];
 };
-
-const mockDates = [
-  "Apr 2024",
-  "Jan 2024",
-  "Nov 2023",
-  "Aug 2023",
-  "May 2023",
-  "Feb 2023",
-  "Oct 2022"
-];
 
 const data: TableProject[] = portfolioData.projects
   .filter(proj => !proj.title.includes("ParhoSain"))
@@ -68,9 +57,8 @@ const data: TableProject[] = portfolioData.projects
   title: proj.title,
   repo: proj.githubUrl || proj.demoUrl || "Private Repo",
   status: proj.title.includes("Amanat") ? "Inactive" : "Active",
-  team: proj.category,
   tech: proj.tech.slice(0, 3).join(", "), // showing top 3 tech
-  createdAt: mockDates[idx] || "2023",
+  createdAt: proj.createdAt || "2023",
   contributors: [
     {
       name: portfolioData.name,
@@ -84,7 +72,6 @@ const data: TableProject[] = portfolioData.projects
 const allColumns = [
   "Project",
   "Repository",
-  "Team",
   "Tech",
   "Created At",
   "Contributors",
@@ -102,6 +89,33 @@ function ContributorsTable() {
       (!techFilter || project.tech.toLowerCase().includes(techFilter.toLowerCase()))
     );
   });
+
+  const [fetchedDates, setFetchedDates] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    filteredData.forEach(proj => {
+      if (proj.repo !== "Private Repo" && proj.repo.includes("github.com")) {
+        // Extract owner/repo from URL
+        let repoPath = proj.repo;
+        if (repoPath.startsWith("https://")) {
+          repoPath = repoPath.replace("https://github.com/", "");
+        } else {
+          repoPath = repoPath.replace("github.com/", "");
+        }
+        
+        fetch(`https://api.github.com/repos/${repoPath}`)
+          .then(res => res.json())
+          .then(d => {
+            if (d.created_at) {
+              const date = new Date(d.created_at);
+              const formatted = date.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+              setFetchedDates(prev => ({ ...prev, [proj.id]: formatted }));
+            }
+          })
+          .catch(err => console.error("Error fetching repo date:", err));
+      }
+    });
+  }, []);
 
   const toggleColumn = (col: string) => {
     setVisibleColumns((prev) =>
@@ -155,7 +169,6 @@ function ContributorsTable() {
           <TableRow className="border-zinc-800 hover:bg-transparent">
             {visibleColumns.includes("Project") && <TableHead className="w-[180px] text-zinc-400">Project</TableHead>}
             {visibleColumns.includes("Repository") && <TableHead className="w-[220px] text-zinc-400">Repository</TableHead>}
-            {visibleColumns.includes("Team") && <TableHead className="w-[150px] text-zinc-400">Team</TableHead>}
             {visibleColumns.includes("Tech") && <TableHead className="w-[150px] text-zinc-400">Tech</TableHead>}
             {visibleColumns.includes("Created At") && <TableHead className="w-[120px] text-zinc-400">Created At</TableHead>}
             {visibleColumns.includes("Contributors") && <TableHead className="w-[150px] text-zinc-400">Contributors</TableHead>}
@@ -181,9 +194,8 @@ function ContributorsTable() {
                     </a>
                   </TableCell>
                 )}
-                {visibleColumns.includes("Team") && <TableCell className="whitespace-nowrap">{project.team}</TableCell>}
                 {visibleColumns.includes("Tech") && <TableCell className="whitespace-nowrap">{project.tech}</TableCell>}
-                {visibleColumns.includes("Created At") && <TableCell className="whitespace-nowrap">{project.createdAt}</TableCell>}
+                {visibleColumns.includes("Created At") && <TableCell className="whitespace-nowrap">{fetchedDates[project.id] || project.createdAt}</TableCell>}
                 {visibleColumns.includes("Contributors") && (
                   <TableCell className="min-w-[120px]">
                     <div className="flex -space-x-2">

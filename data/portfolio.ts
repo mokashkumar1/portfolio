@@ -8,6 +8,7 @@ export interface Project {
   demoUrl?: string;
   image?: string;
   highlights: string[];
+  createdAt?: string;
 }
 
 export interface Experience {
@@ -187,7 +188,8 @@ export const portfolioData: PortfolioData = {
         "Device-locking session management (prevents multi-device access)",
         "Admin dashboard for user management and payment verification",
         "OWASP security compliance with prepared statements & CSRF tokens"
-      ]
+      ],
+      createdAt: "Jul 2024"
     },
     {
       title: "MUET CS Results Portal",
@@ -204,7 +206,8 @@ export const portfolioData: PortfolioData = {
         "Batch analytics dashboard with 4 KPI metrics",
         "Full accessibility compliance (WCAG 2.1 Level AA)",
         "Deep-linkable URLs for shareable results"
-      ]
+      ],
+      createdAt: "Apr 2024"
     },
     {
       title: "Amanat – Transparent Donation Platform",
@@ -221,7 +224,8 @@ export const portfolioData: PortfolioData = {
         "Campaign progress visualization and milestone tracking",
         "Secure authentication with Supabase Auth",
         "Fully responsive for all device sizes"
-      ]
+      ],
+      createdAt: "Jan 2024"
     },
     {
       title: "Lottery App",
@@ -239,7 +243,8 @@ export const portfolioData: PortfolioData = {
         "Responsive design for multiple screen sizes",
         "Material Design UI implementation",
         "Proper Flutter project structure"
-      ]
+      ],
+      createdAt: "Nov 2023"
     },
     {
       title: "Online Voting System",
@@ -256,7 +261,8 @@ export const portfolioData: PortfolioData = {
         "SQL injection prevention with prepared statements",
         "CSRF protection for all forms",
         "Mobile-responsive voting interface"
-      ]
+      ],
+      createdAt: "Aug 2023"
     },
     {
       title: "Rickshaw Fare Predictor",
@@ -273,7 +279,8 @@ export const portfolioData: PortfolioData = {
         "Zero external dependencies (vanilla JS)",
         "Instant client-side calculations",
         "Quick-access example buttons"
-      ]
+      ],
+      createdAt: "May 2023"
     },
     {
       title: "Digital Notebook",
@@ -291,7 +298,8 @@ export const portfolioData: PortfolioData = {
         "Persistent file storage between sessions",
         "Clean OOP architecture with proper encapsulation",
         "Collaborative team development"
-      ]
+      ],
+      createdAt: "Feb 2023"
     }
   ],
   experience: [

@@ -14,6 +14,67 @@ import ContributorsTable from "@/components/ui/ruixen-contributors-table";
 import { ButtonColorful } from "@/components/ui/button-colorful";
 import { Footer } from "@/components/ui/footer-section";
 import { ExpandableSkillTags } from "@/components/ui/expandable-skill-tags";
+const experienceColorMap: Record<string, {
+  border: string;
+  hoverBorder: string;
+  hoverShadow: string;
+  borderLeft: string;
+  text: string;
+  bullet: string;
+}> = {
+  amber: {
+    border: "border-amber-500/20",
+    hoverBorder: "hover:border-amber-500/50",
+    hoverShadow: "hover:shadow-amber-500/10",
+    borderLeft: "border-l-amber-500/80",
+    text: "text-amber-400",
+    bullet: "bg-amber-500",
+  },
+  purple: {
+    border: "border-purple-500/20",
+    hoverBorder: "hover:border-purple-500/50",
+    hoverShadow: "hover:shadow-purple-500/10",
+    borderLeft: "border-l-purple-500/80",
+    text: "text-purple-400",
+    bullet: "bg-purple-500",
+  },
+  cyan: {
+    border: "border-cyan-500/20",
+    hoverBorder: "hover:border-cyan-500/50",
+    hoverShadow: "hover:shadow-cyan-500/10",
+    borderLeft: "border-l-cyan-500/80",
+    text: "text-cyan-400",
+    bullet: "bg-cyan-500",
+  },
+  pink: {
+    border: "border-pink-500/20",
+    hoverBorder: "hover:border-pink-500/50",
+    hoverShadow: "hover:shadow-pink-500/10",
+    borderLeft: "border-l-pink-500/80",
+    text: "text-pink-400",
+    bullet: "bg-pink-500",
+  },
+  blue: {
+    border: "border-blue-500/20",
+    hoverBorder: "hover:border-blue-500/50",
+    hoverShadow: "hover:shadow-blue-500/10",
+    borderLeft: "border-l-blue-500/80",
+    text: "text-blue-400",
+    bullet: "bg-blue-500",
+  },
+};
+
+const getExperienceColor = (color?: string) => {
+  return experienceColorMap[color as keyof typeof experienceColorMap] || {
+    border: "border-zinc-800",
+    hoverBorder: "hover:border-zinc-700",
+    hoverShadow: "hover:shadow-cyan-500/10",
+    borderLeft: "border-l-cyan-500/80",
+    text: "text-cyan-400",
+    bullet: "bg-cyan-500",
+  };
+};
+
 export default function Home() {
   const [showAllProjects, setShowAllProjects] = useState(false);
   const projects = portfolioData.projects;
@@ -185,29 +246,46 @@ export default function Home() {
           {/* Experience Column */}
           <div className="lg:col-span-2 space-y-6">
             <h2 className="text-4xl font-bold text-white tracking-tighter mb-8">Experience</h2>
-            {portfolioData.experience.map((exp, idx) => (
-              <Card key={idx} className="bg-zinc-950 border-zinc-800 hover:border-zinc-700 transition-colors">
-                <CardHeader>
-                  <div className="flex justify-between items-start flex-col md:flex-row gap-4">
-                    <div>
-                      <CardTitle className="text-xl text-white">{exp.role}</CardTitle>
-                      <CardDescription className="text-zinc-400 text-base mt-1">{exp.company}</CardDescription>
+            {portfolioData.experience.map((exp, idx) => {
+              const colorClasses = getExperienceColor(exp.color);
+              return (
+                <Card
+                  key={idx}
+                  className={cn(
+                    "bg-zinc-950 border-l-4 transition-all duration-300",
+                    colorClasses.border,
+                    colorClasses.hoverBorder,
+                    colorClasses.hoverShadow,
+                    colorClasses.borderLeft
+                  )}
+                >
+                  <CardHeader>
+                    <div className="flex justify-between items-start flex-col md:flex-row gap-4">
+                      <div>
+                        <CardTitle className="text-xl text-white">{exp.role}</CardTitle>
+                        <CardDescription className={cn("text-base mt-1 font-medium transition-colors duration-300", colorClasses.text)}>
+                          {exp.company}
+                        </CardDescription>
+                      </div>
+                      <div className="flex flex-col items-start md:items-end gap-1 text-sm text-zinc-500 font-medium">
+                        <div className="flex items-center gap-1.5"><Calendar className="w-4 h-4" /> {exp.duration}</div>
+                        {exp.location && <div className="flex items-center gap-1.5"><MapPin className="w-4 h-4" /> {exp.location}</div>}
+                      </div>
                     </div>
-                    <div className="flex flex-col items-start md:items-end gap-1 text-sm text-zinc-500 font-medium">
-                      <div className="flex items-center gap-1.5"><Calendar className="w-4 h-4" /> {exp.duration}</div>
-                      {exp.location && <div className="flex items-center gap-1.5"><MapPin className="w-4 h-4" /> {exp.location}</div>}
-                    </div>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <ul className="list-disc list-inside space-y-2 text-zinc-400 text-sm">
-                    {exp.description.map((desc, i) => (
-                      <li key={i}>{desc}</li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            ))}
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-3 text-zinc-400 text-sm">
+                      {exp.description.map((desc, i) => (
+                        <li key={i} className="flex items-start gap-2.5">
+                          <span className={cn("mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full transition-colors duration-300", colorClasses.bullet)} />
+                          <span className="leading-relaxed">{desc}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
 
           {/* Life Carousel / Hobbies */}

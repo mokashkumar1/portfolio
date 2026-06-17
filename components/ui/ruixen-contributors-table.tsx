@@ -53,21 +53,21 @@ type TableProject = {
 const data: TableProject[] = portfolioData.projects
   .filter(proj => !proj.title.includes("ParhoSain"))
   .map((proj, idx) => ({
-  id: String(idx + 1),
-  title: proj.title,
-  repo: proj.githubUrl || proj.demoUrl || "Private Repo",
-  status: proj.title.includes("Amanat") ? "Inactive" : "Active",
-  tech: proj.tech.slice(0, 3).join(", "), // showing top 3 tech
-  createdAt: proj.createdAt || "2023",
-  contributors: [
-    {
-      name: portfolioData.name,
-      email: portfolioData.email,
-      avatar: "https://github.com/mokashkumar1.png",
-      role: "Lead Developer",
-    },
-  ],
-}));
+    id: String(idx + 1),
+    title: proj.title,
+    repo: proj.githubUrl || proj.demoUrl || "Private Repo",
+    status: proj.title.includes("Amanat") ? "Inactive" : "Active",
+    tech: proj.tech.slice(0, 3).join(", "), // showing top 3 tech
+    createdAt: proj.createdAt || "2023",
+    contributors: [
+      {
+        name: portfolioData.name,
+        email: portfolioData.email,
+        avatar: "https://github.com/mokashkumar1.png",
+        role: "Lead Developer",
+      },
+    ],
+  }));
 
 const allColumns = [
   "Project",
@@ -102,7 +102,7 @@ function ContributorsTable() {
         } else {
           repoPath = repoPath.replace("github.com/", "");
         }
-        
+
         fetch(`https://api.github.com/repos/${repoPath}`)
           .then(res => res.json())
           .then(d => {
@@ -126,7 +126,7 @@ function ContributorsTable() {
   };
 
   return (
-        <div className="container my-10 space-y-4 p-4 border border-zinc-800/50 rounded-lg bg-black shadow-[0_0_30px_rgba(34,211,238,0.05)] overflow-x-auto text-zinc-300">
+    <div className="container my-10 space-y-4 p-4 border border-zinc-800/50 rounded-lg bg-black shadow-[0_0_30px_rgba(34,211,238,0.05)] overflow-x-auto text-zinc-300">
       <div className="flex flex-wrap gap-4 items-center justify-between mb-6">
         <div className="flex gap-2 flex-wrap">
           <Input

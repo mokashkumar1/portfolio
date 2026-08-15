@@ -15,22 +15,23 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Mokash Kumar | Portfolio",
-  description: "Computer Systems Engineering portfolio for data analytics, machine learning, projects, gallery, and contact.",
-  keywords: ["Mokash Kumar", "Moksh", "Portfolio", "Machine Learning", "Data Analytics", "Projects", "MUET"],
+  metadataBase: new URL("https://mokashkumar.vercel.app"),
+  title: "Mokash Kumar | Software & Applied AI Portfolio",
+  description: "Computer Systems Engineering student building practical software and developing applied AI/ML skills. Open to software engineering and AI/ML internships.",
+  keywords: ["Mokash Kumar", "Software Engineering Intern", "AI ML Intern", "Applied AI", "Computer Systems Engineering", "React", "Python", "Supabase", "MUET"],
   authors: [{ name: "Mokash Kumar" }],
   openGraph: {
-    title: "Mokash Kumar | Portfolio",
-    description: "Systems undergraduate and creative storyteller crafting intelligent models and visual designs.",
-    url: "https://example.com",
+    title: "Mokash Kumar | Software & Applied AI Portfolio",
+    description: "Computer Systems Engineering student building practical software, developing applied AI/ML skills, and seeking software or AI/ML internships.",
+    url: "https://mokashkumar.vercel.app",
     siteName: "Mokash Kumar Portfolio",
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mokash Kumar | Portfolio",
-    description: "Systems undergraduate and creative storyteller crafting intelligent models and visual designs.",
+    title: "Mokash Kumar | Software & Applied AI Portfolio",
+    description: "Computer Systems Engineering student building practical software, developing applied AI/ML skills, and seeking software or AI/ML internships.",
   },
 };
 

@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mokash Kumar - Portfolio
 
-## Getting Started
+Recruiter-focused portfolio for Mokash Kumar, a Computer Systems Engineering student building practical software, developing applied AI/ML skills, and seeking software engineering or AI/ML internship opportunities.
 
-First, run the development server:
+## Stack
+
+- Next.js 16 and React 19
+- TypeScript
+- Tailwind CSS
+- Static project case study route
+- Vercel deployment
+
+## Main sections
+
+The homepage presents a direct profile summary, proof points, selected projects, relevant experience, education, a focused technical stack, and contact links. SmartCR and the MUET Results Portal are the primary software projects, with Rickshaw Fare Predictor providing early applied machine-learning evidence.
+
+## Local development
 
 ```bash
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Quality checks
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run lint
+npm run type-check
+npm run build
+```
 
-## Learn More
+## Project structure
 
-To learn more about Next.js, take a look at the following resources:
+- `app/` - pages, metadata, and global styles
+- `components/` - reusable UI and page sections
+- `data/portfolio.ts` - verified portfolio copy and links
+- `public/assets/` - profile, project, and resume assets
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The production site is deployed on Vercel at [mokashkumar.vercel.app](https://mokashkumar.vercel.app/). Deployments should use `npm run build`; this repository does not require runtime secrets for the public portfolio.

@@ -57,6 +57,10 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.temp
+/tmp/
+
+# Private resume source/reference files
+/public/assets/resume/Work/
 
 # Temporary screenshots
 /portfolio-check*.png

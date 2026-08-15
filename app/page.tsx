@@ -1,327 +1,166 @@
-"use client";
-
-import React, { useState } from "react";
-import Image from "next/image";
-import { AnimatePresence, motion } from "framer-motion";
-import { cn } from "@/lib/utils";
+import type { SVGProps } from "react";
+import { ArrowUpRight, CheckCircle2, Mail } from "lucide-react";
 import { SplineHero } from "@/components/sections/SplineHero";
-import { MarqueeDemo } from "@/components/ui/marquee-demo";
-import { HoverSpotlight } from "@/components/ui/hover-spotlight";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Navbar } from "@/components/ui/navbar";
 import { portfolioData } from "@/data/portfolio";
-import { ExternalLink, Calendar, MapPin } from "lucide-react";
-import ContributorsTable from "@/components/ui/ruixen-contributors-table";
-import { ButtonColorful } from "@/components/ui/button-colorful";
-import { Footer } from "@/components/ui/footer-section";
-import { ExpandableSkillTags } from "@/components/ui/expandable-skill-tags";
-const experienceColorMap: Record<string, {
-  border: string;
-  hoverBorder: string;
-  hoverShadow: string;
-  borderLeft: string;
-  text: string;
-  bullet: string;
-}> = {
-  amber: {
-    border: "border-amber-500/20",
-    hoverBorder: "hover:border-amber-500/50",
-    hoverShadow: "hover:shadow-amber-500/10",
-    borderLeft: "border-l-amber-500/80",
-    text: "text-amber-400",
-    bullet: "bg-amber-500",
-  },
-  purple: {
-    border: "border-purple-500/20",
-    hoverBorder: "hover:border-purple-500/50",
-    hoverShadow: "hover:shadow-purple-500/10",
-    borderLeft: "border-l-purple-500/80",
-    text: "text-purple-400",
-    bullet: "bg-purple-500",
-  },
-  cyan: {
-    border: "border-cyan-500/20",
-    hoverBorder: "hover:border-cyan-500/50",
-    hoverShadow: "hover:shadow-cyan-500/10",
-    borderLeft: "border-l-cyan-500/80",
-    text: "text-cyan-400",
-    bullet: "bg-cyan-500",
-  },
-  pink: {
-    border: "border-pink-500/20",
-    hoverBorder: "hover:border-pink-500/50",
-    hoverShadow: "hover:shadow-pink-500/10",
-    borderLeft: "border-l-pink-500/80",
-    text: "text-pink-400",
-    bullet: "bg-pink-500",
-  },
-  blue: {
-    border: "border-blue-500/20",
-    hoverBorder: "hover:border-blue-500/50",
-    hoverShadow: "hover:shadow-blue-500/10",
-    borderLeft: "border-l-blue-500/80",
-    text: "text-blue-400",
-    bullet: "bg-blue-500",
-  },
-};
 
-const getExperienceColor = (color?: string) => {
-  return experienceColorMap[color as keyof typeof experienceColorMap] || {
-    border: "border-zinc-800",
-    hoverBorder: "hover:border-zinc-700",
-    hoverShadow: "hover:shadow-cyan-500/10",
-    borderLeft: "border-l-cyan-500/80",
-    text: "text-cyan-400",
-    bullet: "bg-cyan-500",
-  };
-};
+const Github = (props: SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.2c3-.3 6-1.5 6-6.5a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 5 3 6.2 6 6.5a4.8 4.8 0 0 0-1 3.2v4" />
+    <path d="M9 18c-4.5 1.5-5-2.5-7-3" />
+  </svg>
+);
+
+const Linkedin = (props: SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+    <rect width="4" height="12" x="2" y="9" />
+    <circle cx="4" cy="4" r="2" />
+  </svg>
+);
+
+function SectionHeading({ eyebrow, title, intro }: { eyebrow: string; title: string; intro?: string }) {
+  return (
+    <div className="mb-9 max-w-3xl sm:mb-12">
+      <p className="section-kicker">{eyebrow}</p>
+      <h2 className="mt-4 text-3xl font-bold tracking-[-0.035em] text-white sm:text-5xl">{title}</h2>
+      {intro && <p className="mt-4 text-base leading-7 text-zinc-400 sm:text-lg">{intro}</p>}
+    </div>
+  );
+}
 
 export default function Home() {
-  const [showAllProjects, setShowAllProjects] = useState(false);
-  const projects = portfolioData.projects;
-  const displayedProjects = showAllProjects ? projects : projects.slice(0, 3);
-
   return (
-    <main className="min-h-screen bg-background text-foreground overflow-x-hidden selection:bg-cyan-500/30 bg-noise">
-      {/* Navbar space placeholder if needed */}
-      <nav className="fixed top-0 left-0 right-0 z-50 p-4 md:px-8 flex justify-between items-center glass-panel shadow-lg shadow-black/20 rounded-b-2xl mx-auto max-w-7xl">
-        <div className="font-heading font-bold text-2xl tracking-tighter text-white">
-          {portfolioData.name}
-        </div>
-        <div className="flex items-center gap-8 text-sm font-medium text-zinc-400">
-          <a href="#about" className="hover:text-cyan-400 transition-colors">About</a>
-          <a href="#projects" className="hover:text-cyan-400 transition-colors">Work</a>
-          <a href="#experience" className="hover:text-cyan-400 transition-colors">Experience</a>
-        </div>
-      </nav>
-
-      {/* Hero Section */}
+    <main className="min-h-screen overflow-x-hidden bg-noise">
+      <Navbar />
       <SplineHero />
 
-      {/* Infinite Marquee Tech Stack */}
-      <MarqueeDemo />
-
-      {/* About Section */}
-      <section id="about" className="py-24 relative max-w-7xl mx-auto px-6">
-        <div className="absolute -left-40 top-1/3 w-[500px] h-[500px] bg-cyan-500/[0.04] blur-[120px] rounded-full pointer-events-none" />
-        <Card className="w-full bg-black/[0.96] relative overflow-hidden border-zinc-800 hover:bg-black/[0.96]">
-          <div className="p-8 md:p-14">
-            <h2 className="text-4xl md:text-5xl font-heading font-bold text-white tracking-tighter">
-              About
-            </h2>
-            <p className="mt-6 text-zinc-400 max-w-3xl leading-relaxed text-base md:text-lg">
-              {portfolioData.aboutText}
-            </p>
-            <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {portfolioData.skills.map(cat => (
-                <ExpandableSkillTags
-                  key={cat.category}
-                  title={cat.category}
-                  skills={cat.items}
-                  initialCount={4}
-                  className="space-y-3"
-                />
-              ))}
+      <section aria-label="Technical focus" className="border-b border-white/10">
+        <div className="mx-auto grid max-w-6xl grid-cols-2 gap-px bg-white/10 sm:grid-cols-4">
+          {portfolioData.proofPoints.map((point) => (
+            <div key={point} className="bg-[#07090b] px-4 py-5 text-center text-xs font-medium leading-5 text-zinc-300 sm:px-5 sm:text-sm">
+              {point}
             </div>
-          </div>
-        </Card>
-      </section>
-
-      {/* Projects Grid with Ibelick Spotlight */}
-      <section id="projects" className="py-24 max-w-7xl mx-auto px-6 relative z-10">
-        <div className="mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tighter">Projects</h2>
-          <p className="text-zinc-400 mt-4 text-lg">A selection of my recent works across web, ML, and systems.</p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <AnimatePresence mode="popLayout">
-            {displayedProjects.map((project, idx) => (
-              <motion.div
-                key={project.title}
-                layout
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.4, delay: idx > 2 ? (idx - 3) * 0.1 : 0 }}
-                className={cn(
-                  "relative group rounded-3xl p-[1px] bg-gradient-to-b overflow-hidden shadow-2xl shadow-black/50",
-                  idx === 0 ? "md:col-span-2 from-cyan-500/30 via-cyan-500/5 to-transparent" : "from-white/10 to-transparent"
-                )}
-              >
-                <HoverSpotlight className={idx === 0 ? "from-cyan-500/20 via-cyan-500/5 to-transparent" : "from-cyan-500/30 via-cyan-500/10 to-transparent"} size={300} />
-                <div className={cn(
-                  "relative h-full bg-zinc-950/60 backdrop-blur-xl rounded-[23px] overflow-hidden flex flex-col z-10 border border-white/5",
-                  idx === 0 ? "md:flex-row" : "flex-col"
-                )}>
-
-                  {/* Image Section */}
-                  <div className={cn(
-                    "relative bg-zinc-900 overflow-hidden shrink-0 flex items-center justify-center",
-                    idx === 0 ? "h-64 md:h-auto md:w-[45%] lg:w-[50%] border-b md:border-b-0 md:border-r border-white/5" : "aspect-video w-full border-b border-white/5"
-                  )}>
-                    {project.image ? (
-                      <Image
-                        src={project.image}
-                        alt={project.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        className="object-cover opacity-80 group-hover:opacity-100 transition-all duration-700 group-hover:scale-105"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-zinc-700 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-zinc-800 to-zinc-950">
-                        No Image Available
-                      </div>
-                    )}
-                    {/* Subtle inner shadow overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent opacity-60 pointer-events-none" />
-
-                    {/* Browser Frame Dots (for premium feel on featured project) */}
-                    {idx === 0 && (
-                      <div className="absolute top-5 left-5 flex gap-1.5 z-20">
-                        <div className="w-2.5 h-2.5 rounded-full bg-red-500/80 border border-black/20" />
-                        <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80 border border-black/20" />
-                        <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 border border-black/20" />
-                      </div>
-                    )}
-
-                    <div className="absolute top-4 right-4 flex gap-2 z-20">
-                      {project.githubUrl && (
-                        <a href={project.githubUrl} target="_blank" rel="noreferrer" className="p-2 bg-black/40 backdrop-blur-md border border-white/10 rounded-full text-white hover:bg-white hover:text-cyan-400 transition-colors" title="GitHub Repository">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.02c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                        </a>
-                      )}
-                      {project.demoUrl && (
-                        <a href={project.demoUrl} target="_blank" rel="noreferrer" className="p-2 bg-black/40 backdrop-blur-md border border-white/10 rounded-full text-white hover:bg-white hover:text-cyan-400 transition-colors">
-                          <ExternalLink className="w-4 h-4" />
-                        </a>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Content Section */}
-                  <div className={cn(
-                    "p-6 flex-1 flex flex-col justify-center",
-                    idx === 0 ? "md:p-10 lg:p-12 md:w-[55%] lg:w-[50%]" : ""
-                  )}>
-                    <div className="text-[10px] font-mono font-bold text-cyan-400/80 mb-3 uppercase tracking-widest">{project.category}</div>
-                    <h3 className={cn(
-                      "font-bold text-white mb-3 tracking-tight",
-                      idx === 0 ? "text-3xl lg:text-4xl" : "text-2xl"
-                    )}>{project.title}</h3>
-                    <p className="text-zinc-400/90 text-sm leading-relaxed mb-6 flex-1">
-                      {idx === 0 && project.longDescription ? project.longDescription : project.description}
-                    </p>
-
-                    {/* Tech Pills */}
-                    <div className="flex flex-wrap gap-2 mt-auto pt-5 border-t border-white/5">
-                      {project.tech.map(tech => (
-                        <span key={tech} className="px-3 py-1 bg-white/5 text-zinc-300 text-[11px] font-medium rounded-full border border-white/10 tracking-wide hover:bg-white/10 transition-colors">
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </div>
-        <div className="mt-12 flex justify-center">
-          <button
-            onClick={() => setShowAllProjects(!showAllProjects)}
-            className="group flex items-center gap-2 px-6 py-3 bg-zinc-900 hover:bg-zinc-800 text-white border border-white/10 hover:border-cyan-500/50 rounded-full transition-all duration-300 shadow-lg shadow-black/20"
-          >
-            <span className="font-medium text-sm">{showAllProjects ? "Show Less" : "Show More Projects"}</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={cn("transition-transform duration-300", showAllProjects ? "rotate-180" : "group-hover:translate-y-1")}><path d="m6 9 6 6 6-6" /></svg>
-          </button>
+          ))}
         </div>
       </section>
 
-      {/* Experience & Hobbies Bento Grid */}
-      <section id="experience" className="py-24 max-w-7xl mx-auto px-6 relative">
-        <div className="absolute right-0 top-1/2 w-[600px] h-[600px] bg-purple-500/10 blur-[120px] rounded-full pointer-events-none" />
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Experience Column */}
-          <div className="lg:col-span-2 space-y-6">
-            <h2 className="text-4xl font-bold text-white tracking-tighter mb-8">Experience</h2>
-            {portfolioData.experience.map((exp, idx) => {
-              const colorClasses = getExperienceColor(exp.color);
-              return (
-                <Card
-                  key={idx}
-                  className={cn(
-                    "bg-zinc-950 border-l-4 transition-all duration-300",
-                    colorClasses.border,
-                    colorClasses.hoverBorder,
-                    colorClasses.hoverShadow,
-                    colorClasses.borderLeft
-                  )}
-                >
-                  <CardHeader>
-                    <div className="flex justify-between items-start flex-col md:flex-row gap-4">
-                      <div>
-                        <CardTitle className="text-xl text-white">{exp.role}</CardTitle>
-                        <CardDescription className={cn("text-base mt-1 font-medium transition-colors duration-300", colorClasses.text)}>
-                          {exp.company}
-                        </CardDescription>
-                      </div>
-                      <div className="flex flex-col items-start md:items-end gap-1 text-sm text-zinc-500 font-medium">
-                        <div className="flex items-center gap-1.5"><Calendar className="w-4 h-4" /> {exp.duration}</div>
-                        {exp.location && <div className="flex items-center gap-1.5"><MapPin className="w-4 h-4" /> {exp.location}</div>}
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-3 text-zinc-400 text-sm">
-                      {exp.description.map((desc, i) => (
-                        <li key={i} className="flex items-start gap-2.5">
-                          <span className={cn("mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full transition-colors duration-300", colorClasses.bullet)} />
-                          <span className="leading-relaxed">{desc}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
-
-          {/* Life Carousel / Hobbies */}
-          <div className="space-y-6">
-            <h2 className="text-4xl font-bold text-white tracking-tighter mb-8">Beyond Code</h2>
-            <div className="grid grid-cols-1 gap-6">
-              {portfolioData.hobbies.map((hobby, idx) => (
-                <div key={idx} className="relative group rounded-3xl p-[1px] bg-gradient-to-b from-white/10 to-transparent overflow-hidden h-full">
-                  <HoverSpotlight className="from-purple-500/30 via-purple-500/10 to-transparent" size={200} />
-                  <div className="relative h-full bg-zinc-950 p-6 rounded-[23px] overflow-hidden flex flex-col z-10">
-                    <h3 className="text-lg font-bold text-white mb-2">{hobby.title}</h3>
-                    <p className="text-zinc-400 text-sm leading-relaxed">{hobby.description}</p>
-                  </div>
+      <section id="projects" className="section-shell">
+        <SectionHeading
+          eyebrow="Selected projects"
+          title="Evidence of how I build."
+          intro="The first two projects show my current software engineering work, while the fare predictor is an early applied machine-learning project. Each link below has been checked against the deployed application and public repository."
+        />
+        <div className="grid gap-5 lg:grid-cols-2">
+          {portfolioData.projects.map((project, index) => (
+            <article key={project.title} className={`project-card ${index === 2 ? "lg:col-span-2" : ""}`}>
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-300">{project.category}</p>
+                <span className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-xs text-emerald-300">Deployed</span>
+              </div>
+              <h3 className="mt-5 text-2xl font-semibold tracking-tight text-white sm:text-3xl">{project.title}</h3>
+              <p className="mt-3 leading-7 text-zinc-300">{project.description}</p>
+              <dl className="mt-6 space-y-4 text-sm leading-6">
+                <div>
+                  <dt className="font-semibold text-white">Problem</dt>
+                  <dd className="mt-1 text-zinc-400">{project.problem}</dd>
                 </div>
-              ))}
+                <div>
+                  <dt className="font-semibold text-white">What I built</dt>
+                  <dd className="mt-1 text-zinc-400">{project.contribution}</dd>
+                </div>
+              </dl>
+              <ul className="mt-6 space-y-2 text-sm text-zinc-300" aria-label={`${project.title} proof`}>
+                {project.proof.map((item) => (
+                  <li key={item} className="flex gap-2.5">
+                    <CheckCircle2 aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-cyan-400" /> {item}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-6 flex flex-wrap gap-2 border-t border-white/10 pt-5">
+                {project.tech.map((tech) => (
+                  <span key={tech} className="rounded-full bg-white/[0.06] px-3 py-1.5 text-xs text-zinc-300">{tech}</span>
+                ))}
+              </div>
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                <a className="button-secondary" href={project.githubUrl} target="_blank" rel="noreferrer" aria-label={`View ${project.title} source code on GitHub`}>
+                  <Github aria-hidden="true" className="h-4 w-4" /> Code
+                </a>
+                <a className="button-primary" href={project.demoUrl} target="_blank" rel="noreferrer" aria-label={`Open the live ${project.title} application`}>
+                  Live demo <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="experience" className="section-shell border-t border-white/10">
+        <SectionHeading
+          eyebrow="Relevant experience"
+          title="Leadership and communication beyond the codebase."
+          intro="My strongest engineering evidence is in the projects above. These roles add experience in coordination, deadlines, and communicating work clearly."
+        />
+        <div className="grid gap-4 md:grid-cols-3">
+          {portfolioData.experience.map((item) => (
+            <article key={`${item.role}-${item.company}`} className="rounded-2xl border border-white/10 bg-white/[0.035] p-5 sm:p-6">
+              <p className="text-xs font-medium uppercase tracking-[0.15em] text-cyan-300">{item.duration}</p>
+              <h3 className="mt-4 text-xl font-semibold text-white">{item.role}</h3>
+              <p className="mt-1 text-sm text-zinc-400">{item.company}</p>
+              <p className="mt-4 text-sm leading-6 text-zinc-300">{item.description}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="education" className="section-shell border-t border-white/10">
+        <SectionHeading eyebrow="Education" title="Computer Systems Engineering at MUET." />
+        <div className="rounded-3xl border border-white/10 bg-white/[0.035] p-6 sm:p-8">
+          <p className="text-xl font-semibold text-white sm:text-2xl">{portfolioData.education.degree}</p>
+          <p className="mt-2 text-zinc-300">{portfolioData.education.institution}</p>
+          <p className="mt-3 text-sm text-zinc-400">{portfolioData.education.duration}</p>
+        </div>
+      </section>
+
+      <section id="skills" className="section-shell border-t border-white/10">
+        <SectionHeading eyebrow="Technical skills" title="A focused stack backed by project work." />
+        <div className="grid gap-4 sm:grid-cols-2">
+          {portfolioData.skills.map((group) => (
+            <div key={group.category} className="rounded-2xl border border-white/10 bg-white/[0.035] p-5 sm:p-6">
+              <h3 className="font-semibold text-white">{group.category}</h3>
+              <ul className="mt-4 flex flex-wrap gap-2" aria-label={`${group.category} skills`}>
+                {group.items.map((skill) => (
+                  <li key={skill} className="rounded-full border border-white/10 bg-black/20 px-3 py-1.5 text-sm text-zinc-300">{skill}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="section-shell border-t border-white/10">
+        <SectionHeading eyebrow="Creative perspective" title="Technical work, with an eye for presentation." />
+        <p className="max-w-3xl text-base leading-7 text-zinc-300 sm:text-lg">{portfolioData.creativeNote}</p>
+      </section>
+
+      <section id="contact" className="border-t border-white/10">
+        <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
+          <div className="rounded-3xl border border-cyan-400/20 bg-cyan-400/[0.06] p-6 sm:p-10">
+            <p className="section-kicker">Contact</p>
+            <h2 className="mt-4 max-w-3xl text-3xl font-bold tracking-[-0.035em] text-white sm:text-5xl">Open to software engineering and AI/ML internships.</h2>
+            <p className="mt-4 max-w-2xl leading-7 text-zinc-300">If you are hiring an intern who can contribute to practical software while growing in applied AI, I would be glad to speak.</p>
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <a className="button-primary" href={`mailto:${portfolioData.email}`}><Mail aria-hidden="true" className="h-4 w-4" /> Email me</a>
+              <a className="button-secondary" href={portfolioData.linkedinUrl} target="_blank" rel="noreferrer"><Linkedin aria-hidden="true" className="h-4 w-4" /> LinkedIn</a>
+              <a className="button-secondary" href={portfolioData.githubUrl} target="_blank" rel="noreferrer"><Github aria-hidden="true" className="h-4 w-4" /> GitHub</a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Open Source Contributions Section */}
-      <section className="py-24 max-w-7xl mx-auto px-6 relative">
-        <div className="mb-12 flex flex-col md:flex-row gap-6 justify-between items-end">
-          <div>
-            <h2 className="text-4xl font-bold text-white tracking-tighter">Open Source & Community</h2>
-            <p className="text-zinc-400 mt-4 text-lg max-w-2xl">
-              I actively contribute to and maintain various open-source projects. Here&apos;s a live overview of my recent activities.
-            </p>
-          </div>
-          <ButtonColorful label="Explore My GitHub" onClick={() => window.open("https://github.com/mokashkumar1", "_blank")} />
-        </div>
-        <ContributorsTable />
-      </section>
-
-      {/* Custom Footer Component */}
-      <Footer />
+      <footer className="border-t border-white/10 px-5 py-7 text-center text-sm text-zinc-500 sm:px-8">
+        © {new Date().getFullYear()} {portfolioData.name}. Built with Next.js.
+      </footer>
     </main>
   );
 }

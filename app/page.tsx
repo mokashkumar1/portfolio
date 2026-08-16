@@ -1,6 +1,7 @@
 import type { SVGProps } from "react";
 import { ArrowUpRight, CheckCircle2, Mail } from "lucide-react";
 import { SplineHero } from "@/components/sections/SplineHero";
+import { CreativeWork } from "@/components/sections/CreativeWork";
 import { Navbar } from "@/components/ui/navbar";
 import { portfolioData } from "@/data/portfolio";
 
@@ -138,10 +139,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section-shell border-t border-white/10">
-        <SectionHeading eyebrow="Creative perspective" title="Technical work, with an eye for presentation." />
-        <p className="max-w-3xl text-base leading-7 text-zinc-300 sm:text-lg">{portfolioData.creativeNote}</p>
-      </section>
+      <CreativeWork />
 
       <section id="contact" className="border-t border-white/10">
         <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">

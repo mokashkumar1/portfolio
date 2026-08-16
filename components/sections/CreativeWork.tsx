@@ -59,15 +59,7 @@ export function CreativeWork() {
         <span className="creative-profile-link">View Instagram <ArrowUpRight aria-hidden="true" className="h-4 w-4" /></span>
       </a>
 
-      <div className="mt-14 flex items-end justify-between gap-5 sm:mt-16">
-        <div>
-          <p className="section-kicker">Selected work</p>
-          <h3 className="mt-3 text-2xl font-semibold tracking-tight text-white sm:text-3xl">Selected Visual Work</h3>
-        </div>
-        <p className="hidden max-w-xs text-right text-sm leading-6 text-zinc-400 sm:block">A growing record of everyday scenes, people, and the moments in between.</p>
-      </div>
-
-      <div className="creative-gallery mt-7" aria-label="Selected photography">
+      <div className="creative-gallery mt-12 sm:mt-16" aria-label="Selected photography">
         {visuals.map((visual, index) => (
           <button key={visual.label} type="button" className={`creative-image ${visual.className}`} onClick={() => setActiveIndex(index)} aria-label={`Open ${visual.label} photograph`}>
             <Image src={visual.src} alt={visual.alt} fill sizes={index === 0 ? "(min-width: 768px) 66vw, 100vw" : "(min-width: 768px) 33vw, 50vw"} />

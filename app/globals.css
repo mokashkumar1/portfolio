@@ -124,55 +124,12 @@
   .button-secondary {
     @apply border border-white/15 bg-white/[0.04] text-white hover:border-cyan-300/50 hover:bg-white/[0.08];
   }
-  .creative-profile-row {
-    @apply flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.035] p-3 transition-colors hover:border-cyan-300/40 hover:bg-white/[0.06] sm:max-w-2xl sm:gap-4 sm:p-4;
-  }
-  .creative-avatar {
-    @apply h-12 w-12 shrink-0 rounded-full border border-cyan-300/40 object-cover object-[50%_24%] sm:h-14 sm:w-14;
-  }
-  .creative-profile-link {
-    @apply hidden shrink-0 items-center gap-1 text-sm font-medium text-cyan-300 sm:inline-flex;
-  }
-  .creative-gallery {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: repeat(2, minmax(9rem, 1fr));
-    gap: 0.75rem;
-  }
-  .creative-image {
-    @apply relative min-w-0 overflow-hidden rounded-2xl bg-white/[0.04] text-left focus-visible:ring-2 focus-visible:ring-cyan-300;
-  }
-  .creative-image img {
-    @apply h-full w-full object-cover transition duration-500 ease-out;
-  }
-  .creative-image:hover img { transform: scale(1.03); }
-  .creative-feature { grid-row: span 2; min-height: 24rem; }
-  .creative-detail { min-height: 11.625rem; }
-  .creative-detail-top img { object-position: 50% 18%; }
-  .creative-detail-bottom img { object-position: 84% 55%; }
-  .creative-image-label {
-    @apply absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent px-4 pb-3 pt-10 text-xs font-medium uppercase tracking-[0.15em] text-white/90;
-  }
-  .creative-lightbox {
-    @apply fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-5 backdrop-blur-sm;
-  }
-  .creative-lightbox > img {
-    @apply max-h-[85vh] max-w-full rounded-xl object-contain shadow-2xl;
-  }
-  .creative-close {
-    @apply absolute right-4 top-4 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-black/40 text-white transition hover:bg-white/15;
-  }
   a:focus-visible,
   button:focus-visible {
     @apply outline-none ring-2 ring-cyan-300 ring-offset-2 ring-offset-[#050607];
   }
 }
 
-@media (min-width: 640px) {
-  .creative-gallery { grid-template-rows: repeat(2, minmax(13rem, 1fr)); gap: 1rem; }
-  .creative-feature { min-height: 34rem; }
-  .creative-detail { min-height: 16.5rem; }
-}
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

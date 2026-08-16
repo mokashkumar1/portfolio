@@ -29,8 +29,8 @@ export const portfolioData = {
   githubUrl: "https://github.com/mokashkumar1",
   github: "github.com/mokashkumar1",
   linkedin: "linkedin.com/in/mokashkumar",
-  instagram: "instagram.com/mokshluhana",
-  resumeUrl: "/assets/resume/resume.pdf",
+  instagram: "instagram.com/mokshkumarr",
+  resumeUrl: "/assets/resume/mokash-kumar-resume.pdf",
   summary:
     "I build practical web applications with React, JavaScript, Supabase, and PostgreSQL while developing my skills in machine learning and applied AI. I am working toward a career in AI engineering and seeking software engineering or AI/ML internship opportunities where I can contribute and keep growing.",
   aboutText:

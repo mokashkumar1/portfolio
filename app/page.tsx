@@ -50,14 +50,16 @@ export default function Home() {
         <SectionHeading
           eyebrow="Selected projects"
           title="Evidence of how I build."
-          intro="The first two projects show my current software engineering work, while the fare predictor is an early applied machine-learning project. Each link below has been checked against the deployed application and public repository."
+          intro="A selection of applied AI/LLM applications, desktop system utilities, and web software engineering projects. Each link below has been checked against the deployed application or public repository."
         />
         <div className="grid gap-5 lg:grid-cols-2">
-          {portfolioData.projects.map((project, index) => (
-            <article key={project.title} className={`project-card ${index === 2 ? "lg:col-span-2" : ""}`}>
+          {portfolioData.projects.map((project) => (
+            <article key={project.title} className="project-card">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-300">{project.category}</p>
-                <span className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-xs text-emerald-300">Deployed</span>
+                <span className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-xs text-emerald-300">
+                  {project.badge || "Deployed"}
+                </span>
               </div>
               <h3 className="mt-5 text-2xl font-semibold tracking-tight text-white sm:text-3xl">{project.title}</h3>
               <p className="mt-3 leading-7 text-zinc-300">{project.description}</p>
@@ -87,8 +89,8 @@ export default function Home() {
                 <a className="button-secondary" href={project.githubUrl} target="_blank" rel="noreferrer" aria-label={`View ${project.title} source code on GitHub`}>
                   <Github aria-hidden="true" className="h-4 w-4" /> Code
                 </a>
-                <a className="button-primary" href={project.demoUrl} target="_blank" rel="noreferrer" aria-label={`Open the live ${project.title} application`}>
-                  Live demo <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+                <a className="button-primary" href={project.demoUrl} target="_blank" rel="noreferrer" aria-label={`Open ${project.title}`}>
+                  {project.demoLabel || "Live demo"} <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
                 </a>
               </div>
             </article>
